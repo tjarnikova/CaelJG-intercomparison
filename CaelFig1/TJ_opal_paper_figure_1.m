@@ -74,20 +74,17 @@ kappau_ = .5*median(exp(A+Au)-exp(A-Au)) % and transform uncertainty in log-kapp
 oc = o;
 kappa = kappa_; 
 
-
-%y here are 
-
-y = log(oc)+b.*(log(z)-log(1000)); % take log & normalise to 1km depth
+%TJ I really think he means b_ not b - the median, otherwise it doesn't
+%quite make sense, change "b" in the below line to "b_"
+y = log(oc)+b_.*(log(z)-log(1000)); % take log & normalise to 1km depth
 x = log(kappa.^gamma_.*(xc+beta_.*xs)); % combine IC+Si fluxes & log to get x-axis TJ: why the f is it called xc/xs and i/s. oh, he renamed it. 
 
-%scatter(exp(x),exp(y),50,log10(xc./xs),'filled'); % plot data
-tcol = (log10(xc./xs)); %colour
-scatter(exp(x),exp(y(:,1)),50, tcol, 'filled'); % plot data TJ for some reason colour doesn't work?
+scatter(exp(x),exp(y),50,log10(xc./xs),'filled'); % plot data
+%tcol = (log10(xc./xs)); %colour
+%scatter(exp(x),exp(y(:,1)),50, tcol, 'filled'); % plot data TJ. 
 set(gca,'xscale','log','yscale','log','ticklabelinterpreter','latex','fontsize',16) % y axis
 box on % to add top+right edges to figure in matlab
 axis([.005 500 .005 500]) % change to see all data as needed
-% TJ: plt.ylim(1e-2, 316.227766017)
-%TJ:  plt.xlim(0.00316227766, 600)
 
 title('Southern Ocean ($r^2 = 0.79$)','interpreter','latex') % example numbers from one region
 ylabel('$\mathcal{F}_{OC} \times z^{0.69(\pm0.03)}$','interpreter','latex') % example numbers from one region
@@ -98,3 +95,4 @@ spp = plot(logspace(-5,5),kappa_.*logspace(-5,5).^gamma_,'-.k','linewidth',3) % 
 spl = legend([spp],'$y\sim x^{0.86(\pm0.02)}$','fontsize',16,'location','southeast') % add legend with gamma+kappa 
 set(spl,'interpreter','latex') % make font consistent with rest of plot
 set(gca,'xtick',[.01 1 100],'ytick',[.01 1 100]) % feel free to change
+colorbar %TJ, show colorbar
