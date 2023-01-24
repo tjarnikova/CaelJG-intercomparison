@@ -78,7 +78,8 @@ kappa = kappa_;
 %TJ I really think he means b_ not b - the median, otherwise it doesn't
 %quite make sense, change "b" in the below line to "b_"
 y = log(oc)+b_.*(log(z)-log(1000)); % take log & normalise to 1km depth
-x = log(kappa.^gamma_.*(xc+beta_.*xs)); % combine IC+Si fluxes & log to get x-axis TJ: why the f is it called xc/xs and i/s. oh, he renamed it. 
+%x = log(kappa.^gamma_.*(xc+beta_.*xs)); % combine IC+Si fluxes & log to get x-axis TJ: why the f is it called xc/xs and i/s. oh, he renamed it. 
+x = log(xc + beta_.*xs); %shall we try to plot what's actually on graph labels
 
 scatter(exp(x),exp(y),50,log10(xc./xs),'filled'); % plot data
 %tcol = (log10(xc./xs)); %colour
