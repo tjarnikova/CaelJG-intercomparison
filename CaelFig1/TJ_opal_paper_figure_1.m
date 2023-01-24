@@ -3,7 +3,7 @@ close all; %TJ - closing all figures.
 
 
 b = .4:.01:1; % parameter space to scan -- b-value
-csr = .1:.01:.5; % parameter space to scan -- ratio of alphas
+csr = .1:.01:.5; % parameter space to scan -- ratio of alphas #TJ THIS IS ALSO BETA. WHY WE CAN'T BE CONSISTENT WITH NAMING IS BEYOND ME. 
 j = find(Y<-30); % find different regions -- data are sparse enough that one can draw a line of constant longitude to split Atl. vs. Pac.
 nboot = 1000; % number of bootstrap iterations
 
@@ -19,8 +19,8 @@ o = o(z>0); i = i(z>0); s = s(z>0); z = z(z>0);
 
 clearvars -EXCEPT z s o i csr b nboot;
 
-xc = i; % one x variable
-xs = s; % the other
+xc = i; % one x variable #i = xc = F_ic, TJ. NAMING CONSISTENCY!!
+xs = s; % the other #xs = s = F_si, again, unreasonable TJ
 
 lo = log(o); % y is the log of Foc
 n = length(lo);
@@ -56,7 +56,7 @@ end
 
 r2_ = median(R.^2) % report bootstrap median r^2
 b_ = median(bb) % and median b-value
-%TJ: don't have toolbox for it, isnt' used later, won't worry about it for
+%TJ: don't have toolbox for bu, isnt' used later, won't worry about it for
 %right now. 
 %bu_ = mad(bb) % and m.a.d. of b-values
 beta_ = median(csrb) % and median ratio of alphas -- which along with kappa and gamma gives you the alphas
@@ -65,13 +65,14 @@ beta_ = median(csrb) % and median ratio of alphas -- which along with kappa and 
 %right now. 
 %betau_ = mad(csrb) % and m.a.d. of this ratio
 gamma_ = median(M) % and median gamma
-gammau_ = median(Mu) % and median uncertainty in gamma (could & maybe should use m.a.d. of gammas in text, actually... will change this)
+gammau_ = median(Mu);%TJ suppress % and median uncertainty in gamma (could & maybe should use m.a.d. of gammas in text, actually... will change this)
 kappa_ = median(exp(A)) % and median kappa
-kappau_ = .5*median(exp(A+Au)-exp(A-Au)) % and transform uncertainty in log-kappa to uncertainty in kappa -- but like above should just report m.a.d. of bootstraps actually
+kappau_ = .5*median(exp(A+Au)-exp(A-Au)); %tj suppress % and transform uncertainty in log-kappa to uncertainty in kappa -- but like above should just report m.a.d. of bootstraps actually
+median(A)
 
 %%% add cael's plotting code
 % start with depth = z, IC flux = ic, Si flux = si, ratio of alpha's = beta, OC flux = oc, b = b, kappa = kappa, gamma = gamma
-oc = o;
+oc = o; %tj - rename with above variable names for this code to make sense. why we need to keep switching single-character variable names is beyond me
 kappa = kappa_; 
 
 %TJ I really think he means b_ not b - the median, otherwise it doesn't
